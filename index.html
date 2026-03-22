@@ -1056,7 +1056,7 @@
             const modalTitle = document.getElementById('modalTitle');
             const modalList = document.getElementById('modalList');
 
-            modalTitle.textContent = title + ' – Tuning specifikáció';
+            modalTitle.textContent = title;
             modalList.innerHTML = items.map(item => `<li>${item}</li>`).join('');
             modal.classList.add('active');
         }
