@@ -147,6 +147,54 @@
             font-size: 2.2rem;
         }
 
+        .rent-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 10, 14, .72);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 3002;
+        }
+
+        .rent-modal.active {
+            display: flex;
+        }
+
+        .rent-modal-box {
+            width: min(560px, 100%);
+            background: #161d27;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+            position: relative;
+        }
+
+        .rent-modal-box h3 {
+            margin: 0 0 16px;
+            font-size: 1.6rem;
+        }
+
+        .rent-modal-box p {
+            color: #c2cad6;
+            line-height: 1.8;
+            margin: 0 0 18px;
+        }
+
+        .rent-contact-list {
+            display: grid;
+            gap: 12px;
+            color: #fff;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 18px;
+        }
+
         .section-head p {
             margin: 0;
             color: var(--muted);
@@ -464,7 +512,7 @@
                             onclick="openModal('Oudin G7', ['8 venom 2 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$35 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -485,7 +533,7 @@
                             onclick="openModal('Oudin O8', ['6 venom 2 verseny', '4-es ültetőrugó', 'Felni és Lámpa PJ'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -506,7 +554,7 @@
                             onclick="openModal('Steiner SMT Einz', ['8 venom 3 egyedi tuning', 'Airride', 'Egyedi matrica', 'Nitro'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$50 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -527,7 +575,7 @@
                             onclick="openModal('Steiner S63', ['8 venom 3 egyedi tuning', 'Airride', 'Egyedi matrica', 'Erős ABS', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -548,7 +596,7 @@
                             onclick="openModal('Steiner S63', ['8 venom 3 egyedi tuning', 'Airride', 'Prémium traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -569,7 +617,7 @@
                             onclick="openModal('Rockland Glen Rock', ['8 venom 2 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$30 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -590,7 +638,7 @@
                             onclick="openModal('Rockland Conquer 8', ['8 venom 3 egyedi tuning', 'Airride', 'Nitro'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -611,7 +659,7 @@
                             onclick="openModal('Kaizen Cavari 70', ['8 venom 3 egyedi tuning', 'Airride', 'Lámpa PJ', 'Nitro', 'Normál traffpax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$30 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -632,7 +680,7 @@
                             onclick="openModal('Crod C150', ['8 venom 3 egyedi tuning', 'Airride'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -653,7 +701,7 @@
                             onclick="openModal('Crod Pick Up Costum', ['8 venom 3 egyedi tuning', 'Airride'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -674,7 +722,7 @@
                             onclick="openModal('Crod C150 Behemoth', ['8 venom 2 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -695,7 +743,7 @@
                             onclick="openModal('Bravon Devil RS-T', ['8 venom 3 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -715,8 +763,8 @@
                         <button class="tuning-btn"
                             onclick="openModal('Übermachen Style 5 e60', ['8 venom 3 egyedi tuning', 'Airride', 'Nitro, gyenge ABS', 'Felni és Lámpa PJ', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
-                        <div class="price-box"><span>Ár/nap:</span><strong>$30 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$35 000</strong></div>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -737,7 +785,7 @@
                             onclick="openModal('Steiner 190 E2', ['8 venom 3 egyedi tuning', 'Airride', 'Egyedi matrica és felni PJ', 'Prémium traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$35 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -758,7 +806,7 @@
                             onclick="openModal('Sienna T-RS', ['8 venom 3 egyedi tuning', 'Airride', 'Prémium traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -779,7 +827,7 @@
                             onclick="openModal('MacRaeven S1', ['7 venom 2 egyedi tuning', 'Airride', 'Egyedi matrica', 'Normál traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -800,7 +848,7 @@
                             onclick="openModal('Heisler 315 Turbo', ['8 venom 3 egyedi tuning', 'Airride', 'Felni PJ', 'LSD ajtó', 'Prémium traffipax radar'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -821,7 +869,7 @@
                             onclick="openModal('Blackstone Ridge Sport', ['8 venom', '1-es ültetőrugó'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -842,7 +890,7 @@
                             onclick="openModal('Rosetti BC', ['8 venom 3 egyedi tuning', 'Airride'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -863,7 +911,7 @@
                             onclick="openModal('Kaizen Arashi 4', ['5 venom 1 verseny', '4-es ültetőrugó', 'Normál BF'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -883,7 +931,7 @@
                         <button class="tuning-btn" onclick="openModal('Crod C550 Towtruck', ['7 venom'])">🛠
                             Felszereltség</button>
                         <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
-                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                        <button class="rent-btn" onclick="openRentModal()">Szeretném kibérelni</button>
                     </div>
                 </article>
 
@@ -988,13 +1036,27 @@
         <div class="container">© 2026 Nitro Rentals. Minden jog fenntartva.</div>
     </footer>
 
+    <div class="rent-modal" id="rentModal">
+        <div class="rent-modal-box">
+            <button class="close-btn" onclick="closeRentModal()">X</button>
+            <h3>Kapcsolatfelvétel bérléshez</h3>
+            <p>Amennyiben szeretnéd kibérelni valamelyik járművünket, az alábbi elérhetőségek egyikén vedd fel velünk a
+                kapcsolatot:</p>
+
+            <div class="rent-contact-list">
+                <div><strong>Discord:</strong> a9d9a9m</div>
+                <div><strong>Telefon:</strong> +38-77-747-2524</div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function openModal(title, items) {
             const modal = document.getElementById('tuningModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalList = document.getElementById('modalList');
 
-            modalTitle.textContent = title + ' – Felszereltség';
+            modalTitle.textContent = title + ' – Tuning specifikáció';
             modalList.innerHTML = items.map(item => `<li>${item}</li>`).join('');
             modal.classList.add('active');
         }
@@ -1011,12 +1073,24 @@
             document.getElementById('guideModal').classList.remove('active');
         }
 
+        function openRentModal() {
+            document.getElementById('rentModal').classList.add('active');
+        }
+
+        function closeRentModal() {
+            document.getElementById('rentModal').classList.remove('active');
+        }
+
         document.getElementById('tuningModal').addEventListener('click', function (e) {
             if (e.target === this) closeModal();
         });
 
         document.getElementById('guideModal').addEventListener('click', function (e) {
             if (e.target === this) closeGuideModal();
+        });
+
+        document.getElementById('rentModal').addEventListener('click', function (e) {
+            if (e.target === this) closeRentModal();
         });
     </script>
 
