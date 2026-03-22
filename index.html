@@ -1,1 +1,1025 @@
+<!DOCTYPE html>
+<html lang="hu">
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nitro Rentals</title>
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --bg-soft: #121922;
+            --card: #161d27;
+            --card-soft: #1d2632;
+            --text: #f5f7fa;
+            --muted: #a9b3c1;
+            --accent: #ff7a00;
+            --accent-2: #ffb15c;
+            --blue: #3b82f6;
+            --gray1: #a14134cc;
+            --gray2: #810606;
+            --success: #22c55e;
+            --fail: #ff0000;
+            --line: rgba(255, 255, 255, 0.08);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+            --max: 1280px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top right, rgba(255, 122, 0, 0.14), transparent 25%),
+                linear-gradient(180deg, #0b0f14 0%, #0d1218 100%);
+            color: var(--text);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(var(--max), calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 15, 20, .8);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+            min-height: 76px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .brand span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #bcc6d3;
+            font-weight: 700;
+        }
+
+        .menu-guide-btn {
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #aa553c, #eb6e25);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 800;
+            border-radius: 12px;
+            padding: 10px 16px;
+            box-shadow: 0 10px 25px rgba(235, 110, 37, 0.20);
+            transition: 0.2s ease;
+        }
+
+        .menu-guide-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            padding: 70px 0 50px;
+        }
+
+        .hero-box {
+            background: linear-gradient(135deg, rgba(255, 122, 0, .14), rgba(255, 255, 255, .03));
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .hero h1 {
+            margin: 0 0 14px;
+            font-size: clamp(2.1rem, 5vw, 4rem);
+            line-height: 1.02;
+            letter-spacing: -1.2px;
+        }
+
+        .hero p {
+            margin: 0;
+            max-width: 850px;
+            color: #c2cad6;
+            line-height: 1.8;
+            font-size: 1.04rem;
+        }
+
+        section {
+            padding: 20px 0 70px;
+        }
+
+        .section-head {
+            margin-bottom: 24px;
+        }
+
+        .section-head h2 {
+            margin: 0 0 10px;
+            font-size: 2.2rem;
+        }
+
+        .section-head p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
+            align-items: start;
+        }
+
+        .car-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .car-image-wrap {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+            background: #111;
+        }
+
+        .car-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .availability {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--success);
+            color: #fff;
+            font-size: .92rem;
+            font-weight: 800;
+            padding: 10px 14px;
+            border-radius: 999px;
+        }
+
+        .not-availability {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--fail);
+            color: #fff;
+            font-size: .92rem;
+            font-weight: 800;
+            padding: 10px 14px;
+            border-radius: 999px;
+        }
+
+        .car-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .car-title {
+            font-size: 1.9rem;
+            margin: 0;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .spec-box {
+            background: var(--card-soft);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 18px;
+        }
+
+        .spec-item small {
+            display: block;
+            color: var(--muted);
+            font-size: .92rem;
+            margin-bottom: 4px;
+        }
+
+        .spec-item strong {
+            display: block;
+            font-size: 1.08rem;
+            color: #fff;
+        }
+
+        .tuning-btn {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--gray1), var(--gray2));
+            color: #ffffff;
+            font-weight: 900;
+            letter-spacing: .3px;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(197, 50, 50, 0.25);
+        }
+
+        .price-box {
+            background: #242629;
+            border-radius: 13px;
+            padding: 17px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
+        }
+
+        .price-box span {
+            color: #ff0000;
+            font-size: 1rem;
+        }
+
+        .price-box strong {
+            color: #ffffff;
+            font-size: 2rem;
+            line-height: 1;
+            font-weight: 900;
+        }
+
+        .rent-btn {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #aa553c, #eb6e25);
+            color: #fff;
+            font-size: 1.08rem;
+            font-weight: 900;
+            border-radius: 13px;
+            padding: 14px 15px;
+            box-shadow: 0 7px 22px rgba(37, 99, 235, .24);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .modal,
+        .guide-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 10, 14, .72);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 3000;
+        }
+
+        .modal.active,
+        .guide-modal.active {
+            display: flex;
+        }
+
+        .modal-box,
+        .guide-modal-box {
+            width: min(700px, 100%);
+            max-height: 85vh;
+            overflow-y: auto;
+            background: #161d27;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+            position: relative;
+        }
+
+        .modal-box h3,
+        .guide-modal-box h3 {
+            margin: 0 0 14px;
+            font-size: 1.5rem;
+        }
+
+        .guide-modal-box ul {
+            margin: 0 0 16px;
+            padding-left: 22px;
+            line-height: 1.8;
+            color: #c2cad6;
+        }
+
+        .guide-modal-box li {
+            margin-bottom: 12px;
+        }
+
+        .guide-modal-box p {
+            color: #c2cad6;
+            line-height: 1.8;
+            margin: 0 0 14px;
+        }
+
+        .close-btn {
+            position: sticky;
+            top: 0;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 999px;
+            background: #ff2e2e;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .footer {
+            border-top: 1px solid var(--line);
+            padding: 28px 0 40px;
+            color: #a8b3c0;
+        }
+
+        @media (max-width: 1024px) {
+            .fleet-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 760px) {
+            .nav-inner {
+                flex-direction: column;
+                justify-content: center;
+                padding: 14px 0;
+            }
+
+            .fleet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-box {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-box {
+                padding: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="container nav-inner">
+            <div class="brand">Nitro <span>Rentals</span></div>
+            <nav class="nav-links">
+                <a href="#fleet">Autóink</a>
+                <a href="#contact">Elérhetőség</a>
+                <button class="menu-guide-btn" onclick="openGuideModal()">Bérlés menete</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-box">
+                <h1>Prémium autóbérlés, nagy és változatos készlettel.</h1>
+                <p>
+                    A NitroRentals nemrég nyílt meg a városban, El Quabrados területén helyezkedik el székhelyünk.
+                    Nagyon változatos, full és kevésbé felszerelt gépjárműparkkal várja kedves vendégeit. Cégünk célja,
+                    hogy ügyfeleink minden igényének megtudjunk felelni, a gépjárműparkunk minden felhasználási
+                    területet magába ölel. Vontatás, taxizás, csak egy laza gurulás a városban, nálunk megtalálják amire
+                    éppen szükségük van.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fleet">
+        <div class="container">
+            <div class="section-head">
+                <h2>Autóink</h2>
+            </div>
+
+            <div class="fleet-grid">
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Audi-Q7.png" alt="Audi-Q7">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Oudin G7</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>M-AB-394</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Dízel</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>326646</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Van</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Oudin G7', ['8 venom 2 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$35 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Audi-A8.png" alt="AudiA8"> alt="Audi-A8">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Oudin O8</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>LEN-96</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>222596</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Van</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Oudin O8', ['6 venom 2 verseny', '4-es ültetőrugó', 'Felni és Lámpa PJ'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/AMG-ONE.png" alt="AMG-ONE">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Steiner SMT Einz</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>REACH-ME</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>377760</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Steiner SMT Einz', ['8 venom 3 egyedi tuning', 'Airride', 'Egyedi matrica', 'Nitro'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$50 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/A24NVW-GT63S.png" alt="a24nvw">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Steiner S63</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>A24NVW</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>367741</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Steiner S63', ['8 venom 3 egyedi tuning', 'Airride', 'Egyedi matrica', 'Erős ABS', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/CHAEWON-GT63S.png" alt="Chaewon">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Steiner S63</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>CHAEWON</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>390348</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Steiner S63', ['8 venom 3 egyedi tuning', 'Airride', 'Prémium traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Bel-Air.png" alt="Bel-Air">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Rockland Glen Rock</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>MJE-42</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>248242</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Rockland Glen Rock', ['8 venom 2 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$30 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/C8.png" alt="C8">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Rockland Conquer 8</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>ESCORT</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>373432</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Rockland Conquer 8', ['8 venom 3 egyedi tuning', 'Airride', 'Nitro'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Camry.png" alt="Camry">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Kaizen Cavari 70</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>DEVIL98</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>288602</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Van</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Kaizen Cavari 70', ['8 venom 3 egyedi tuning', 'Airride', 'Lámpa PJ', 'Nitro', 'Normál traffpax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$30 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Crod-C150.png" alt="Crod-C150">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Crod C150</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>AI-LI-46</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>390224</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Crod C150', ['8 venom 3 egyedi tuning', 'Airride'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/CrodC150-Costum.png" alt="Crod-C150-Costum">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Crod Pick Up Costum</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>AI-JE-69</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>388837</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Crod Pick Up Costum', ['8 venom 3 egyedi tuning', 'Airride'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Raptor.png" alt="Raptor">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Crod C150 Behemoth</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>MUNKAGEP</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>254861</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Van</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Crod C150 Behemoth', ['8 venom 2 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Demon.png" alt="Demon">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Bravon Devil RS-T</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>OIC-80</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>285880</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Bravon Devil RS-T', ['8 venom 3 egyedi tuning', 'Airride', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/E60.png" alt="E60">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Übermachen Style 5 e60</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>AG-AH-22</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>369160</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Van</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Übermachen Style 5 e60', ['8 venom 3 egyedi tuning', 'Airride', 'Nitro, gyenge ABS', 'Felni és Lámpa PJ', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$35 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/EVO2.png" alt="EVO2">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Steiner 190 E2</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>TEC-001</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>340929</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Steiner 190 E2', ['8 venom 3 egyedi tuning', 'Airride', 'Egyedi matrica és felni PJ', 'Prémium traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$35 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/GTR.png" alt="GTR">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Sienna T-RS</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>CAI-43</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>40043</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Sienna T-RS', ['8 venom 3 egyedi tuning', 'Airride', 'Prémium traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/P1.png" alt="P1">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">MacRaeven S1</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>ADOSZP1</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>370103</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('MacRaeven S1', ['7 venom 2 egyedi tuning', 'Airride', 'Egyedi matrica', 'Normál traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Porsche911.png" alt="Porsche911">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Heisler 315 Turbo</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>CURSED</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>305574</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Heisler 315 Turbo', ['8 venom 3 egyedi tuning', 'Airride', 'Felni PJ', 'LSD ajtó', 'Prémium traffipax radar'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/RangeRover.png" alt="Range">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Blackstone Ridge Sport</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>CDI-42</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>44242</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Van</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Blackstone Ridge Sport', ['8 venom', '1-es ültetőrugó'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Rosetti.png" alt="Rosetti">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Rosetti BC</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>AI-EH-60</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>385978</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Rosetti BC', ['8 venom 3 egyedi tuning', 'Airride'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$45 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Supra.png" alt="Supra">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Kaizen Arashi 4</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>LCJ-79</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Benzin</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>219379</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn"
+                            onclick="openModal('Kaizen Arashi 4', ['5 venom 1 verseny', '4-es ültetőrugó', 'Normál BF'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$25 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+                <article class="car-card">
+                    <div class="car-image-wrap">
+                        <img src="images/Towtruck.png" alt="Towtruck">
+                        <div class="availability"></div>
+                    </div>
+                    <div class="car-body">
+                        <h3 class="car-title">Crod C550 Towtruck</h3>
+                        <div class="spec-box">
+                            <div class="spec-item"><small>Rendszám</small><strong>CZ-391SV</strong></div>
+                            <div class="spec-item"><small>Üzemanyag</small><strong>Dízel</strong></div>
+                            <div class="spec-item"><small>Alvázszám</small><strong>256849</strong></div>
+                            <div class="spec-item"><small>Vonóhorog</small><strong>Nincs</strong></div>
+                        </div>
+                        <button class="tuning-btn" onclick="openModal('Crod C550 Towtruck', ['7 venom'])">🛠
+                            Felszereltség</button>
+                        <div class="price-box"><span>Ár/nap:</span><strong>$40 000</strong></div>
+                        <a href="#contact" class="rent-btn">Szeretném kibérelni</a>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-head">
+                <h2>Elérhetőség</h2>
+            </div>
+            <div class="contact-box">
+                <div class="contact-list">
+                    <div>Discord: a9d9a9m</div>
+                    <div>Telefon: +38-77-747-2524</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal" id="tuningModal">
+        <div class="modal-box">
+            <button class="close-btn" onclick="closeModal()">X</button>
+            <h3 id="modalTitle">Felszereltség</h3>
+            <ul id="modalList"></ul>
+        </div>
+    </div>
+
+    <div class="guide-modal" id="guideModal">
+        <div class="guide-modal-box">
+            <button class="close-btn" onclick="closeGuideModal()">X</button>
+            <h3>Bérlés menete</h3>
+            <hr>
+            <p>
+                A bérlés folyamata nálunk egyszerű és gyors. Először válassza ki az ön számára megfelelő járművet,
+                majd vegye fel velünk a kapcsolatot telefonon vagy e-mailben.
+            </p>
+            <p>
+                A kocsikat, minden esetben profi alkatrészekkel szereljük valamint prémium üzemanyaggal tankoljuk.
+                Karbantartásuk rendeltetés szerűen működik, szakemberek végzik rendszeresen és időben.
+            </p>
+            <p>
+                Autóinkat minden egyes ügyfelünknek, egy teljes hétre van lehetősége kibérelni, ezzel elkerülve minden
+                felmerülő kellemetlenséget a parkolókártyák miatt.
+            </p>
+            <p>
+                A kocsikat, mindig megszerelt, forgalmiztatott, teletankolt és tiszta állapotában kapja meg tőlünk a
+                vevő. A kötelező felszerelések és egy extra bikakábel is mindig van az autókban.
+            </p>
+            <hr>
+            <p>
+                Szabályzat a kocsik kibérlésére vonatkozóan:
+            </p>
+            <p>A kocsik bérlési díja fel van tüntetve mindegyiknél, de ezen felül az alábbi díjakkal számoljon a bérlés
+                előtt:</p>
+
+            <ul>
+                <li>Parkoló kártya ((Protect)): melynek kuponára 300 db kupon, ez egészen 1 hétig tart. Melynek ára, ha
+                    a bérlő gondoskodik meglétéről, akkor amennyiért ő azt meg tudja venni, abban az
+                    esetben, ha a NitroRentals veszi, akkor 700$/db kuponáron lehetséges a megvásárlása.</li>
+                <li>Kaució: Ez minden egyes járműnél 300,000 $, de természetesen ezt a bérlő visszakapja, amennyiben az
+                    alábbi feltételek teljesülnek:</li>
+                <hr>
+                <li>1. - A kocsit minden esetben a bérlés lejártakor vagy előtte megszerelt, megtankolt, lemosott
+                    állapotban
+                    kell a NitroRentals részére visszajuttatni.</li>
+                <li>2. - A kocsi kulcsot minden esetben vissza kell juttatni a NitroRentals számára, ellenkező esetben a
+                    NitroRentals jogosult a teljes kauciós díj megtartására.</li>
+                <li>3. - Az autót a bérlő köteles rendeltetés szerűen és a közlekedési szabályokat betartva használni.
+                    Amennyiben az autó lefoglalásra kerül a Parkoló Felügyelet vagy a Rendőrség által, akkor a
+                    NitroRentals jogosult a teljes kauciós díj
+                    megtartására, valamint a bérlő köteles további összegként a kiváltás díját megfizetni a NitroRentals
+                    részére.</li>
+                <li>4. - A kocsit hiánytalanul kell visszajuttatni a NitroRentals számára, tehát a kötelező felszerelés
+                    és bikakábel megléte kötelező, ellenkező esetben a NitroRentals
+                    jogosult a teljes kauciós díj megtartására.</li>
+                <hr>
+                <li>A bérelt járművet joga van a bérlőnek a bérlési idő előtt visszahozni a NitroRentals-hoz, viszont a
+                    bérlés díját nem igényelheti vissza, és a kauciós díjat is csak akkor kapja vissza, ha a feltételek
+                    teljesültek.</li>
+                <li>A bérlő felel minden keletkezett kárért és bűntetésért a bérlési idő alatt, ezekről minden esetben
+                    gondoskodnia kell a bérlőnek a bérlési idő alatt.</li>
+                <li>A járműveinken semmilyen esetben sem engedélyezett semmilyen átalakítás, tuning, karosszéria, stb...
+                </li>
+                <li>Amennyiben a járműre bérlési idő alatt hatósági körözés kerül kiadásra, a NitroRentals jogosult a
+                    rendvédelmi szervekkel történő együttmőködésben, valamint joga van a bérleti szerződés azonnali
+                    megszűntetésére.</li>
+                <li>Amennyiben a bérlő nem juttatja vissza a kocsit a szerződésben szereplő időpontig, a NitroRentals
+                    további 30,000$ díjat számol fel minden megkezdett nap után a bérlő terhére.</li>
+            </ul>
+            <p>
+                A szabályzatot minden bérlőnk köteles betartani a szerződés megkötése után, egészen a szerződés végéig.
+            </p>
+            <p>
+                A feltételek módosítására a jogot, a NitroRentals fenntartja.
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">© 2026 Nitro Rentals. Minden jog fenntartva.</div>
+    </footer>
+
+    <script>
+        function openModal(title, items) {
+            const modal = document.getElementById('tuningModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalList = document.getElementById('modalList');
+
+            modalTitle.textContent = title + ' – Felszereltség';
+            modalList.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('tuningModal').classList.remove('active');
+        }
+
+        function openGuideModal() {
+            document.getElementById('guideModal').classList.add('active');
+        }
+
+        function closeGuideModal() {
+            document.getElementById('guideModal').classList.remove('active');
+        }
+
+        document.getElementById('tuningModal').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.getElementById('guideModal').addEventListener('click', function (e) {
+            if (e.target === this) closeGuideModal();
+        });
+    </script>
+
+</body>
+
+</html>
