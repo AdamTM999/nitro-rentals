@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kebab Kaiser | Speisekarte</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .chip {
+            cursor: pointer;
+            border: none;
+            transition: 0.25s ease;
+        }
+
+        .chip.active {
+            background: var(--dark);
+            color: var(--gold2);
+            transform: translateY(-2px);
+        }
+
+        .card {
+            transition: 0.35s ease;
+        }
+
+        .card.hidden {
+            opacity: 0;
+            transform: scale(0.92);
+            pointer-events: none;
+            display: none;
+        }
+
+        .category-section {
+            margin-top: 34px;
+        }
+
+        .category-title {
+            font-family: Georgia, 'Times New Roman', serif;
+            text-transform: uppercase;
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1;
+            margin-bottom: 18px;
+            color: var(--dark);
+            text-shadow: 3px 3px 0 rgba(214, 59, 42, .14);
+        }
+
+        .category-title::after {
+            content: "";
+            display: block;
+            width: 90px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--red), var(--green));
+            border-radius: 999px;
+            margin-top: 14px;
+        }
+
+        .category-divider {
+            height: 2px;
+            background: rgba(36, 20, 15, .14);
+            margin: 34px 0;
+            border-radius: 999px;
+        }
+
+        .category-section.hidden {
+            display: none;
+        }
+
+        .menu-sections {
+            margin-top: 36px;
+        }
+
+        .category-menu-grid {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav><a class="brand" href="index.html"><img src="images2/logo-chili-jo(2).png" alt="Kebab Kaiser Logo">
+                <div><span class="brand-title">Kebab Kaiser</span><small>KÖSSEN</small></div>
+            </a>
+            <div class="navlinks"><a href="index.html">Home</a><a class="active"
+                    href="speisekarte.html">Speisekarte</a><a href="kontakt.html">Anrufen / Kontakt</a></div>
+        </nav>
+    </header>
+
+    <main class="page">
+        <div class="pill">🍽 Speisekarte</div>
+        <h1>Unsere beliebtesten Gerichte</h1>
+        <p class="lead">Die Speisekarte im modernen Karten-Look: klar, schnell lesbar und passend zum
+            Kebab-Kaiser-Design.</p>
+
+        <div class="hero-buttons">
+            <a class="btn light" href="index.html">Zurück zur Startseite</a>
+            <a class="btn green" href="kontakt.html">Jetzt anrufen</a>
+        </div>
+
+        <div class="category-row">
+            <button class="chip active" data-filter="all">Alle</button>
+            <button class="chip" data-filter="snacks">Snacks</button>
+            <button class="chip" data-filter="pizza">Pizza</button>
+            <button class="chip" data-filter="nudelgerichte">Nudelgerichte</button>
+            <button class="chip" data-filter="salate">Salatgerichte</button>
+            <button class="chip" data-filter="spezialitäten">Spezialitäten</button>
+        </div>
+
+        <div class="menu-sections">
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Americana<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Salami, Champignons, Paprika, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Bosna - Klassik 30 cm<sup>(A,C)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>mit Zwiebeln und Cocktailsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Calzone<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Champignons, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Capricciosa<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Artischocken, Champignons, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Chciken Nuggets<sup>(A,C)</sup></h3><span class="price">€4.80</span>
+                </div>
+                <p>8 Stück Hühnerflügerl mit Cocktailsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Cheeseburger<sup>(A,C,G)</sup></h3><span class="price">€4.50</span>
+                </div>
+                <p>mit Zwiebeln, Ketchup, Mayo, Salat</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Chicken Wings<sup>(A,C)</sup></h3><span class="price">€4.80</span>
+                </div>
+                <p>8 Stück Hühnerflügerl mit Chilisauce</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Currywurst<sup>(A)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>mit Currygewürz, Ketchup, Brot</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Diavolo<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>- SCHARF -
+                    Tomatensauce, Käse, Salami, Zwiebel, Pfefferoni, Knoblauch, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Dürüm<sup>(G)</sup></h3><span class="price">€4.50</span>
+                </div>
+                <p>(Dünner Fladen mit Knoblauchsauce)
+                    Tomaten, Kebab, Salat, Zwiebeln
+                </p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Frutti di Mare<sup>(A,B,D,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Meeresfrüchte, Knoblauch, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Funghi<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Champignons, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Gambaretti<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schrimps</p>
+            </div>
+
+            <div class="card reveal" data-category="salate">
+                <div class="card-top">
+                    <h3>Gemischter Salat<sup>(C)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>Salat, Tomaten, Paprika, Gurken, Mais, Blaukraut, Knoblauchsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Grillwurst<sup>(A)</sup></h3><span class="price">€4.50</span>
+                </div>
+                <p>mit Pommes und Ketchup</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Hamburger Spezial<sup>(A,C)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>mit Zwiebeln, Ketchup, Mayo, Tomaten, Salat</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Hot Dog<sup>(A,C)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>mit Zwiebeln und Cocktailsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Kebab Portion<sup>(A,G)</sup></h3><span class="price">€8.00</span>
+                </div>
+                <p>mit Pommes oder Salat</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Kebab-Fladen<sup>(A,G)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>mit Knoblauchsauce, Tomaten, Zwiebeln, Salat</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Kebab-Toast<sup>(A,G)</sup></h3><span class="price">€3.50</span>
+                </div>
+                <p>mit Ketchup und Mayo</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Langosch<sup>(A,G)</sup></h3><span class="price">€4.50</span>
+                </div>
+                <p>mit Ketchup, Mayo, Curry</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Lasagne al forno<sup>(A,G)</sup></h3><span class="price">€6.50</span>
+                </div>
+                <p>Frisches Kebabfleisch, Salat und hausgemachte Sauce.</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Magiafuogo<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>- SCHARF - Tomatensauce, Käse, Salami, Schinken</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Mama<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Salami, Champignons, Gorgonzola, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Margherita<sup>(A,G)</sup></h3><span class="price">€5.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Mozzarella-Sticks<sup>(A,C,G)</sup></h3><span class="price">€4.50</span>
+                </div>
+                <p>6 Stück mit Cocktailsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Napoli<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Mais, Artischocken, Oliven</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Parma<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Parmaschinken, Parmesan und Rukkola</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Pizza al Tonno<sup>(A,D,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Thunfisch, Zwiebel, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Pizza Kaiser<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Kebab-Fleisch, Zwiebel, Paprika, Knoblauch, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Pizza Spezial<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Salami, Champignons, Zwiebel, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Pommes frites</h3><span class="price">€2.50</span>
+                </div>
+                <p>mit Ketchup(A) & Mayo(A,C)</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Prosciutto<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Quattro Formaggio<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, mit 4 Sorten Käse, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Quattro Stagioni<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Salami, Artischocken, Champignons, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Regina<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Champignons, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Rukkola<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Tomaten, Parmesan und Rukkola</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Rustika<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Salami, Speck, Mais</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Salami<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Salami, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="salate">
+                <div class="card-top">
+                    <h3>Salat mit Putenstreifen<sup>(C,G)</sup></h3><span class="price">€7.80</span>
+                </div>
+                <p>mit Pizzabrot</p>
+            </div>
+
+            <div class="card reveal" data-category="salate">
+                <div class="card-top">
+                    <h3>Salat Nizzarda<sup>(A,C,D)</sup></h3><span class="price">€6.50</span>
+                </div>
+                <p>Salat, Thunfusch, Schafskäse, Tomaten, Gurken, Zwiebeln, Paprika, Knoblauchsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Scampi<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Scampi</p>
+            </div>
+
+            <div class="card reveal" data-category="salate">
+                <div class="card-top">
+                    <h3>Scampisalat<sup>(C,G)</sup></h3><span class="price">€8.00</span>
+                </div>
+                <p>mit Knoblauchbrot</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Schinken-Käse-Toast<sup>(A,G)</sup></h3><span class="price">€3.50</span>
+                </div>
+                <p>mit Ketchup & Mayo</p>
+            </div>
+
+            <div class="card reveal" data-category="snacks">
+                <div class="card-top">
+                    <h3>Schnitzelburger<sup>(A,C)</sup></h3><span class="price">€4.50</span>
+                </div>
+                <p>mit Ketchup & Salat</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti<sup>(A,C,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>mit Gorgonzola u. Rahmsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti<sup>A,D</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>mit Thunfisch</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti<sup>(A,B,D,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>mit Meeresfrüchten</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti<sup>(A,C,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>(nach Kaiserart mit Kebabfleisch)
+                    Knoblauch, Zwiebeln, Paprika, Peperoni und Tomatensauce
+                </p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti aglio e olio<sup>(A,C,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>mit Knoblauch und Olivenöl</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti Bolognese<sup>(A,C)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>mit Tomatensauce und Hackfleisch</p>
+            </div>
+
+            <div class="card reveal" data-category="nudelgerichte">
+                <div class="card-top">
+                    <h3>Spaghetti Carbonara</h3><span class="price">€6.00</span>
+                </div>
+                <p>mit Rahmensauce, Speck und Ei</p>
+            </div>
+
+            <div class="card reveal" data-category="spezialitäten">
+                <div class="card-top">
+                    <h3>Spezialgericht vom Kaiser<sup>(G,L)</sup></h3><span class="price">€13.00</span>
+                </div>
+                <p>Mixgrill mit Pommes und feinem Salat</p>
+            </div>
+
+            <div class="card reveal" data-category="spezialitäten">
+                <div class="card-top">
+                    <h3>Steaksalat<sup>(A,G,M,O)</sup></h3><span class="price">€9.90</span>
+                </div>
+                <p>mit Kräuterbutter und Knoblauchbrot</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Tirolia<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Schinken, Speck, Zwiebeln, Mais, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="salate">
+                <div class="card-top">
+                    <h3>Türkischer Salat<sup>(C,G)</sup></h3><span class="price">€4.00</span>
+                </div>
+                <p>Paprika, Oliven, Gurken, Knoblauchsauce</p>
+            </div>
+
+            <div class="card reveal" data-category="pizza">
+                <div class="card-top">
+                    <h3>Vegetaria<sup>(A,G)</sup></h3><span class="price">€6.00</span>
+                </div>
+                <p>Tomatensauce, Käse, Gemüse, Oregano</p>
+            </div>
+
+            <div class="card reveal" data-category="spezialitäten">
+                <div class="card-top">
+                    <h3>Wienerschnitzel vom Schwein<sup>(A,C,G)</sup></h3><span class="price">€10.00</span>
+                </div>
+                <p>mit Pommes</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>© 2026 Kebab Kaiser – Kössen</footer>
+
+    <script>
+        const filterButtons = document.querySelectorAll(".chip");
+        const menuGrid = document.querySelector(".menu-sections");
+        const menuCards = Array.from(document.querySelectorAll(".card"));
+
+        const categoryNames = {
+            snacks: "Snacks",
+            pizza: "Pizza",
+            nudelgerichte: "Nudelgerichte",
+            salate: "Salatgerichte",
+            "spezialitäten": "Spezialitäten"
+        };
+
+        const categoryOrder = ["snacks", "pizza", "nudelgerichte", "salate", "spezialitäten"];
+
+        filterButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                const selectedFilter = button.dataset.filter;
+
+                if (selectedFilter === "all") {
+                    filterButtons.forEach(btn => btn.classList.remove("active"));
+                    button.classList.add("active");
+                    renderMenu([]);
+                    return;
+                }
+
+                document.querySelector('[data-filter="all"]').classList.remove("active");
+                button.classList.toggle("active");
+
+                const activeFilters = [...filterButtons]
+                    .filter(btn => btn.classList.contains("active") && btn.dataset.filter !== "all")
+                    .map(btn => btn.dataset.filter);
+
+                if (activeFilters.length === 0) {
+                    document.querySelector('[data-filter="all"]').classList.add("active");
+                    renderMenu([]);
+                    return;
+                }
+
+                renderMenu(activeFilters);
+            });
+        });
+
+        function renderMenu(activeFilters = []) {
+            menuGrid.innerHTML = "";
+
+            const filtersToShow = activeFilters.length === 0
+                ? categoryOrder
+                : categoryOrder.filter(category => activeFilters.includes(category));
+
+            filtersToShow.forEach((category, index) => {
+                const cardsInCategory = menuCards.filter(card => card.dataset.category === category);
+
+                if (cardsInCategory.length === 0) return;
+
+                const section = document.createElement("section");
+                section.className = "category-section reveal";
+
+                const title = document.createElement("h2");
+                title.className = "category-title";
+                title.textContent = categoryNames[category] + ":";
+
+                const grid = document.createElement("div");
+                grid.className = "menu-grid category-menu-grid";
+
+                cardsInCategory.forEach(card => {
+                    card.classList.remove("hidden");
+                    grid.appendChild(card);
+                });
+
+                section.appendChild(title);
+                section.appendChild(grid);
+                menuGrid.appendChild(section);
+
+                if (index < filtersToShow.length - 1) {
+                    const divider = document.createElement("div");
+                    divider.className = "category-divider";
+                    menuGrid.appendChild(divider);
+                }
+            });
+        }
+
+        renderMenu([]);
+    </script>
+</body>
+
+</html>
