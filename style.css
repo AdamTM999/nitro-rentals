@@ -110,3 +110,35 @@ footer{background:var(--dark);color:white;text-align:center;padding:28px;margin-
 .hero-title-box h1 span {
     color: var(--red);
 }
+
+/* ===== Google Bewertungen / Google értékelés kártya ===== */
+.reviews-card{display:flex;align-items:center;justify-content:center;gap:18px;width:100%;max-width:520px;margin-top:24px;padding:18px 26px;border-radius:24px;background:rgba(255,255,255,.78);backdrop-filter:blur(12px);border:1px solid rgba(36,20,15,.08);box-shadow:0 18px 44px rgba(103,70,24,.10);transition:.22s ease}
+.reviews-card:hover{transform:translateY(-3px);box-shadow:0 24px 54px rgba(103,70,24,.16)}
+.reviews-g{flex:0 0 auto;width:44px;height:44px;display:grid;place-items:center;background:#fff;border-radius:14px;box-shadow:0 8px 18px rgba(36,20,15,.10)}
+.reviews-g svg{width:26px;height:26px;display:block}
+.reviews-body{display:flex;flex-direction:column;gap:4px;min-width:0}
+.reviews-top{display:flex;align-items:center;gap:12px}
+.reviews-score{font-family:Georgia,'Times New Roman',serif;font-weight:1000;font-size:30px;line-height:1;color:var(--dark)}
+.reviews-stars{display:inline-block;font-size:22px;line-height:1;white-space:nowrap;letter-spacing:2px;background:linear-gradient(90deg,var(--gold) calc(var(--rating,5)/5*100%),rgba(36,20,15,.20) calc(var(--rating,5)/5*100%));-webkit-background-clip:text;background-clip:text;color:transparent}
+.reviews-count{font-weight:900;font-size:15px;color:var(--brown);white-space:nowrap}
+.reviews-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:30px}
+.reviews-cta{max-width:520px;text-align:center;color:var(--brown);font-weight:700;font-size:16px;line-height:1.5}
+.reviews-cta b{display:block;font-family:Georgia,'Times New Roman',serif;color:var(--dark);font-size:19px;margin-bottom:2px}
+.reviews-wrap .reviews-card{margin-top:0}
+.reviews-scroll{width:100%;max-width:520px;max-height:330px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:6px;scrollbar-width:thin;scrollbar-color:var(--red) rgba(36,20,15,.08)}
+.reviews-scroll::-webkit-scrollbar{width:8px}
+.reviews-scroll::-webkit-scrollbar-track{background:rgba(36,20,15,.06);border-radius:999px}
+.reviews-scroll::-webkit-scrollbar-thumb{background:linear-gradient(var(--red),var(--red2));border-radius:999px}
+.review-item{background:rgba(255,255,255,.75);backdrop-filter:blur(12px);border:1px solid rgba(36,20,15,.08);box-shadow:0 10px 26px rgba(103,70,24,.08);border-radius:20px;padding:14px 18px;text-align:left}
+.review-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.review-meta{display:flex;flex-direction:column;gap:2px;min-width:0}
+.review-author{font-weight:1000;color:var(--dark)}
+.review-date{font-weight:700;font-size:13px;color:var(--brown);opacity:.7}
+.review-stars{display:inline-block;font-size:19px;line-height:1;white-space:nowrap;letter-spacing:1px;flex:0 0 auto;background:linear-gradient(90deg,var(--gold) calc(var(--rating,5)/5*100%),rgba(36,20,15,.20) calc(var(--rating,5)/5*100%));-webkit-background-clip:text;background-clip:text;color:transparent}
+.review-text{color:var(--brown);font-weight:600;font-size:15px;line-height:1.5}
+
+/* ===== Kontakt: Gruppen (Telefon/Adresse, Socials) ===== */
+.contact-group{margin-top:28px}
+.contact-group .contact-list{margin-top:14px}
+.contact-heading{font-family:Georgia,'Times New Roman',serif;text-transform:uppercase;letter-spacing:1px;font-size:20px;font-weight:1000;color:var(--green);text-shadow:none;display:flex;align-items:center;gap:10px}
+.contact-heading::after{content:"";flex:1 1 auto;height:3px;border-radius:999px;background:rgba(17,140,79,.18)}
